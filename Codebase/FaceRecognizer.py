@@ -85,6 +85,18 @@ class FR_Mouth(FR_Face):
         
 class ImageFeatureSet:
     
+    featureSet = ["Left Eye Center",
+                            "Right Eye Center",
+                            "Nose Center",
+                            "Mouth Center",
+                            "Distance between Left & Right Eye Centers",
+                            "Distance between Left Eye & Nose Centers",
+                            "Distance between Right Eye & Nose Centers",
+                            "Distance between Left Eye & Mouth Centers",
+                            "Distance between Right Eye & Mouth Centers",
+                            "Face Width"
+                           ]
+        
     def __init__(self):
         self.trainingDataSet = {}
         self.testDataSet = {}
@@ -121,13 +133,16 @@ class ImageFeatureSet:
             #print self.trainingDataSet.keys()
             #print self.trainingDataSet.values()
             for k in self.trainingDataSet.keys():
-                print "Filename : ", k
+                print "\nFilename : ", k
+                i = 0
                 for item in self.trainingDataSet[k]:
-                    print item
+                    print "{0:42s}  :  {1}".format(ImageFeatureSet.featureSet[i],item)
+                    i = i + 1
                     
         elif dataSetToBePrinted == "Testing Data":
-            for k in self.trainingDataSet.keys():
-                print "Filename : ", k
-                for item in self.trainingDataSet[k]:
-                    print item
-            
+            for k in self.testDataSet.keys():
+                print "\nFilename : ", k
+                i = 0
+                for item in self.testDataSet[k]:
+                    print "{0:42s}  :  {1}".format(ImageFeatureSet.featureSet[i],item)
+                    i = i + 1            
