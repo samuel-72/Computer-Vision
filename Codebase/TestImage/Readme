@@ -1,1 +1,5 @@
-This folder contains the test image for the project
+This folder contains the test image for the project.
+
+For any given run this folder should contain only one image. 
+This lone image would be the Test image and would be compared against all the images in the "TrainingImages" folder.
+
