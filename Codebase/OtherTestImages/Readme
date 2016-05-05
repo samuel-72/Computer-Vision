@@ -1,0 +1,5 @@
+This folder contains the other test images that could be used for the testing purpose. 
+
+When you want to use an image from this folder copy the image from this folder and paste it in "TestImage" folder. 
+
+Care should be taken that the "TestImage" folder contains only one image at a time for any given run.
