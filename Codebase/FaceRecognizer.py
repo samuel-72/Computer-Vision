@@ -146,3 +146,58 @@ class ImageFeatureSet:
                 for item in self.testDataSet[k]:
                     print "{0:42s}  :  {1}".format(ImageFeatureSet.featureSet[i],item)
                     i = i + 1            
+    
+    
+    def scoring(self,train,test,delta):
+        print "training",train
+        print "test for score",test
+        #Sample testing data delete later
+        # test = {"testing": ((48.0, 60.0), (93.0, 59.0), (84.0, 88.5), (82.0, 105.0), 45.0111097397076, 45.9156835950419, 30.84234102658227, 56.4003546088143, 47.29693436154187, 49.0)}
+        #The dictionary will store the confidence score for a particular test image when trained by a particular image
+        confidence_score ={}
+        
+        #Iterating through each test data and calculating the confidence score for each data in the training set
+        for key_test,value_test in test.iteritems():  
+            
+            for key_train,value_train in train.iteritems():
+                confi={}
+                i=0;
+                #confident increments when there is a matching attribute 
+                confident=0;
+                #The number of matching features gives a count of the number of features which are matched
+                number_of_matching=0;
+                
+                for y in value_train:
+                    if(i<4):
+                        # Matching each feature and calculating the confidence score 
+                        if(abs((y[0]-value_test[i][0]))<delta and abs((y[1]==value_test[i][1])))<delta :
+                            confident = confident+10
+                            number_of_matching=number_of_matching+1
+                        i=i+1
+                    else:
+                        if(abs((y-value_test[i]))<delta):
+                            confident = confident+10
+                            number_of_matching=number_of_matching+1
+                            
+                        i=i+1
+                            
+                                                
+                            
+                            
+                confi[key_train] =[confident,number_of_matching]
+                confidence_score[key_test]=confi
+                
+                print confi
+                
+                #Printing out the output to a text file output.txt            
+                with open ("output.txt","a") as fh:
+                    for x,y in confidence_score.iteritems():
+                        for h,w in y.iteritems():
+                            out="Testing Image-->   %s   Training Image-->   %s   Confidence Score-->    %d    Number of Matching attributes-->   %d\n" % (x,h,w[0],w[1])
+                            fh.write(out)
+                       
+        return confidence_score
+ 
+    
+                        
+                         

@@ -7,11 +7,11 @@ reload(FaceRecognizer)
 
 
 
-face_cascade = cv2.CascadeClassifier('.\\Cascades\\haarcascade_frontalface_default.xml')
-eye_cascade = cv2.CascadeClassifier('.\\Cascades\\haarcascade_eye.xml')
+face_cascade = cv2.CascadeClassifier('C:\\Users\\Marc Nipuna\\Desktop\\Computer-Vision\\Codebase\\Cascades\\haarcascade_frontalface_default.xml')
+eye_cascade = cv2.CascadeClassifier('C:\\Users\\Marc Nipuna\\Desktop\\Computer-Vision\\Codebase\\Cascades\\haarcascade_eye.xml')
 #mouth_cascade = cv2.CascadeClassifier('.\\Cascades\\smiled_01.xml')
-mouth_cascade = cv2.CascadeClassifier('.\\Cascades\\haarcascade_smile.xml')
-nose_cascade = cv2.CascadeClassifier('.\\Cascades\\Nariz.xml')
+mouth_cascade = cv2.CascadeClassifier('C:\\Users\\Marc Nipuna\\Desktop\\Computer-Vision\\Codebase\\Cascades\\haarcascade_smile.xml')
+nose_cascade = cv2.CascadeClassifier('C:\\Users\\Marc Nipuna\\Desktop\\Computer-Vision\\Codebase\\Cascades\\Nariz.xml')
 
 def selectCascades():
     global face_cascade, eye_cascade, mouth_cascade, nose_cascade
@@ -90,9 +90,37 @@ def processImage(pathToImageFile,dataSet,typeOfDataSet):
         cv2.waitKey(0)
         cv2.destroyAllWindows()
         
+    #return dataSet.trainingDataSet,dataSet.testDataSet
+
+        
+                                
 def calculateDistance(point1, point2, method="euclidean"):
     if method == "euclidean":
             return ( math.sqrt( pow( (point1[0] - point2[0]),2 ) + pow( (point1[1] - point2[1]),2 )) )
+            
+def testing(x,value):
+    
+    """Assumes x is a string
+       Returns the feature values calculated  
+       
+    >>> testing("BioID_0001_Training1.pgm",((37.0, 43.0), (70.5, 43.5), (56.5, 56.5), (64.5, 79.5), 33.50373113550191, 23.717082451262844, 19.1049731745428, 45.70010940905941, 36.49657518178932, 62.0))
+    ((37.0, 43.0), (70.5, 43.5), (56.5, 56.5), (64.5, 79.5), 33.50373113550191, 23.717082451262844, 19.1049731745428, 45.70010940905941, 36.49657518178932, 62.0)
+    
+    >>> testing("BioID_0242_Training5.pgm",((56.5, 37.5), (31.0, 37.5), (47.5, 50.0), (53.0, 65.0), 25.5, 15.402921800749363, 20.700241544484452, 27.721832551258224, 35.21718330588067, 118.0))
+    ((56.5, 37.5), (31.0, 37.5), (47.5, 50.0), (53.0, 65.0), 25.5, 15.402921800749363, 20.700241544484452, 27.721832551258224, 35.21718330588067, 118.0)
+    
+    >>> testing("BioID_0005_Testing.pgm",((36.0, 44.5), (71.5, 43.5), (56.0, 55.5), (65.0, 81.5), 35.51408171415952, 22.825424421026653, 19.60229578391266, 47.01063709417264, 38.55191305240247, 68.0))
+    ((36.0, 44.5), (71.5, 43.5), (56.0, 55.5), (65.0, 81.5), 35.51408171415952, 22.825424421026653, 19.60229578391266, 47.01063709417264, 38.55191305240247, 68.0)
+
+    """
+    
+    
+    return value
+    
+            
+def _test():
+    import doctest
+    doctest.testmod()
     
 def main():
     
@@ -100,22 +128,43 @@ def main():
     
     trainingData = FaceRecognizer.ImageFeatureSet()
     testingData = FaceRecognizer.ImageFeatureSet()
-
+    test={}
+    train={}
+    delta = 2.3
     # Call the below method in a loop for every file in the training data set
-    for files in os.walk('.\\TrainingImages\\'):
+    for files in os.walk('C:\\Users\\Marc Nipuna\\Desktop\\Computer-Vision\\Codebase\\TrainingImages\\'):
         for filename in files[2]:
-            processImage('.\\TrainingImages\\'+str(filename),trainingData,"Training Data")
+            processImage('C:\\Users\\Marc Nipuna\\Desktop\\Computer-Vision\\Codebase\\TrainingImages\\'+str(filename),trainingData,"Training Data")
 
     # Call the below method for extracting the features of the test image
-    for files in os.walk('.\\TestImage\\'):
+    print "gonna call test"
+    for files in os.walk('C:\\Users\\Marc Nipuna\\Desktop\\Computer-Vision\\Codebase\\TestImage\\'):
+        print files
         for filename in files[2]:
-            processImage('.\\TestImage\\'+str(filename),testingData,"Testing Data")
+            processImage('C:\\Users\\Marc Nipuna\\Desktop\\Computer-Vision\\Codebase\\TestImage\\'+str(filename),testingData,"Testing Data")
 
     print "\n\n\nPrinting the training data: \n******************************\n "
     trainingData.printDataSet("Training Data")    
 
     print "\n\n\nPrinting the test data: \n******************************\n"
     testingData.printDataSet("Testing Data")
+   
+    
+    train=trainingData.trainingDataSet
+    test=testingData.testDataSet
+     #Scoring the test data with the training dataset
+    
+    #print "train",train
+    #print "test",test
+    
+    score=trainingData.scoring(train,test,delta) 
+    
+    for key_train,value_train in train.iteritems():
+        testing(key_train,value_train)
+    
+    #Printing to the output file
+    #trainingData.print_output_file(score)
 
 if __name__ == '__main__':
     main()
+    _test()
