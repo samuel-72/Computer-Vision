@@ -51,6 +51,11 @@ BY: Vikash Raja Samuel Selvin
 
 
 class FR_Face:
+ """
+   This class represents the data structure created for holding the data points extracted from the "Face" of a person in an image
+   This is inherited by the FR_Eye, FR_Nose and FR_Mouth classes and provides a general template for holding the data points from any region of a persons face
+   It has one method "getMidPoint(), which takes in two arguements - points on a x,y plane and computes the midpoint between them"
+ """
  def __init__(self, facial_object):
     # these are all tuples
        
@@ -77,7 +82,11 @@ class FR_Face:
         
         
 class FR_Eye(FR_Face):
-    
+"""
+   This class represents the data structure created for holding the data points extracted from the "Eye" of a person in an image
+   It differs from the FR_Face class in that it does not store "width"
+   It has one method "getMidPoint(), which takes in two arguements - points on a x,y plane and computes the midpoint between them"
+ """
         def __init__(self,eye_object):
         # these are all tuples
             #print "PE Cons", type(eye_object),  eye_object
@@ -105,16 +114,26 @@ class FR_Eye(FR_Face):
             
 
 class FR_Nose(FR_Face):
-    
+"""
+ This class represents the data structure created for holding the data points extracted from the "Nose" of a person in an image
+ It inherits from the FR_Face class
+"""    
         def __init__(self,nose_object):
             FR_Face.__init__(self,nose_object)    
         
 class FR_Mouth(FR_Face):
-    
+"""
+ This class represents the data structure created for holding the data points extracted from the "Mouth" of a person in an image
+ It inherits from the FR_Face class
+"""
         def __init__(self,mouth_object):
             FR_Face.__init__(self,mouth_object)    
         
 class ImageFeatureSet:
+"""
+ This class represents the data structure for holding the Training and Testing images
+ The data structure consists of a dictionary with the filename as the key and a tuple containing the features as the value    
+"""
     featureSet = ["Left Eye Center",
                             "Right Eye Center",
                             "Nose Center",
