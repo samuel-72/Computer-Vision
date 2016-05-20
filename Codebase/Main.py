@@ -1,3 +1,43 @@
+
+# File Name: Main.py
+
+# By:  Vikash Raja Samuel Selvin
+#      Sarika padmashali
+#      Francisco McGee
+#      Marc Nipuna Dominic Savio
+#      Ankit Basarkar
+
+# Date: 05-19-2016;
+
+# Python Version(s) 2.7.3:
+
+"""
+
+FILE DESCRIPTION:
+
+This is the main entry point of the program.
+This program acts like a wrapper function and calls the functions responsible for doing the below :
+    1. Defining Cascade Files
+    2. Loading the images reserved for training purposes
+    3. Use the cascade files for detecting various features of the image like Face, Eyes, Nose, Mouth;
+
+The code in this file requires the numpy, os, math, cv2, FaceRecognizer modules.
+
+MODIFICATION HISTORY:
+
+DATE: Apr 2016; May 2016;
+
+MODIFICATION: 
+    1. Added appropriate cascade files
+    2. Created the function to extract various features from the images
+    3. Created the function to store the extracted features in the coressponding data set
+    
+BY: Vikash Raja Samuel Selvin
+    Sarika padmashali
+    Francisco McGee
+    Marc Nipuna Dominic Savio
+    Ankit Basarkar
+"""
 import os
 import math
 import numpy as np
