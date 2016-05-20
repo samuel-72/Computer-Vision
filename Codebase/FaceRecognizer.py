@@ -19,7 +19,11 @@ print f_nose.lowerRightPoint
 
 
 class FR_Face:
-
+    """
+    This class represents the data structure created for holding the data points extracted from the "Face" of a person in an image
+    This is inherited by the FR_Eye, FR_Nose and FR_Mouth classes and provides a general template for holding the data points from any region of a persons face
+    It has one method "getMidPoint(), which takes in two arguements - points on a x,y plane and computes the midpoint between them"
+    """
     def __init__(self, facial_object):
     # these are all tuples
        
@@ -84,7 +88,15 @@ class FR_Mouth(FR_Face):
             FR_Face.__init__(self,mouth_object)    
         
 class ImageFeatureSet:
-    
+    """
+    This class contains the template for holding the various features. 
+    The training and testing dataset are stored as Dictionaries whose key is the coressponding filename and whose value is a tuple containing all the features of the image that are extracted
+    These features will be extracted and stored for both the Training and Testing features.
+    The function "addToTrainingDataSet()" will add the extracted features to the Training Data Set
+    The function "addToTestDataSet()" will add the extracted features to the Test Data Set
+    The function "printDataSet()" takes as arguement either the Training or Testing data set and prints the dataset
+    The function "scoring" 
+    """
     featureSet = ["Left Eye Center",
                             "Right Eye Center",
                             "Nose Center",
