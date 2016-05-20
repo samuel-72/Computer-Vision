@@ -1,30 +1,57 @@
-'''
-This class makes it easy to reference the corners of the rectangles that
-represent facial objects. 
+# File Name: FaceRecognizer.py
 
-FR stands for "Face Recognition"
+# By:  Vikash Raja Samuel Selvin
+#      Sarika padmashali
+#      Francisco McGee
+#      Marc Nipuna Dominic Savio
+#      Ankit Basarkar
 
-Below is an example for a nose"
+# Date: 05-19-2016;
 
-nose_cascade = cv2.CascadeClassifier('Nariz.xml')
-nose = nose_cascade.detectMultiScale(roi_gray,minSize=(60,60))
-f_nose = FR_FacialObject.FR_FacialObject(nose)
-print f_nose.upperLeftPoint
-print f_nose.lowerLeftPoint
-print f_nose.upperRightPoint
-print f_nose.lowerRightPoint
+# Python Version(s) 2.7.3:
 
-'''
+"""
 
+FILE DESCRIPTION:
 
-
-class FR_Face:
-    """
+This file contains the class templates for the objects storing the Face, Eyes, Nose and Mouth
+This file also contains the class template for holding the training and testing data sets
+    
+    FR_Face Class:
     This class represents the data structure created for holding the data points extracted from the "Face" of a person in an image
     This is inherited by the FR_Eye, FR_Nose and FR_Mouth classes and provides a general template for holding the data points from any region of a persons face
     It has one method "getMidPoint(), which takes in two arguements - points on a x,y plane and computes the midpoint between them"
-    """
-    def __init__(self, facial_object):
+    
+    ImageFeatureSet Class:
+    This class represents the data structure for holding the Training and Testing images
+    This class contains the template for holding the various features. 
+    The training and testing dataset are stored as Dictionaries whose key is the coressponding filename and whose value is a tuple containing all the features of the image that are extracted
+    These features will be extracted and stored for both the Training and Testing features.
+    The function "addToTrainingDataSet()" will add the extracted features to the Training Data Set
+    The function "addToTestDataSet()" will add the extracted features to the Test Data Set
+    The function "printDataSet()" takes as arguement either the Training or Testing data set and prints the dataset
+    The function "scoring" 
+    
+
+MODIFICATION HISTORY:
+
+DATE: Apr 2016; May 2016;
+
+MODIFICATION: 
+    1. Added FR_Face, FR_Eye, FR_Nose, FR_Mouth 
+    2. Created the function to extract various features from the images
+    3. Created the function to store the extracted features in the coressponding data set
+    
+BY: Vikash Raja Samuel Selvin
+    Sarika padmashali
+    Francisco McGee
+    Marc Nipuna Dominic Savio
+    Ankit Basarkar
+"""
+
+
+class FR_Face:
+ def __init__(self, facial_object):
     # these are all tuples
        
         self.upperLeftPoint         = (facial_object[0][0], facial_object[0][1])
@@ -88,15 +115,6 @@ class FR_Mouth(FR_Face):
             FR_Face.__init__(self,mouth_object)    
         
 class ImageFeatureSet:
-    """
-    This class contains the template for holding the various features. 
-    The training and testing dataset are stored as Dictionaries whose key is the coressponding filename and whose value is a tuple containing all the features of the image that are extracted
-    These features will be extracted and stored for both the Training and Testing features.
-    The function "addToTrainingDataSet()" will add the extracted features to the Training Data Set
-    The function "addToTestDataSet()" will add the extracted features to the Test Data Set
-    The function "printDataSet()" takes as arguement either the Training or Testing data set and prints the dataset
-    The function "scoring" 
-    """
     featureSet = ["Left Eye Center",
                             "Right Eye Center",
                             "Nose Center",
