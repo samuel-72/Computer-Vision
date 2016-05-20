@@ -6,7 +6,9 @@ import FaceRecognizer
 reload(FaceRecognizer)
 
 
-
+"""
+The cascade files are defined as global variables. The function selectCascades() has been included as a place holder which could be used to add/modify/delete cascade files in the future.
+"""
 face_cascade = cv2.CascadeClassifier('C:\\Users\\Marc Nipuna\\Desktop\\Computer-Vision\\Codebase\\Cascades\\haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier('C:\\Users\\Marc Nipuna\\Desktop\\Computer-Vision\\Codebase\\Cascades\\haarcascade_eye.xml')
 #mouth_cascade = cv2.CascadeClassifier('.\\Cascades\\smiled_01.xml')
@@ -19,6 +21,12 @@ def selectCascades():
 
 
 def processImage(pathToImageFile,dataSet,typeOfDataSet):
+    """
+    This function takes as input the path where the images for training or testing purposes are present, the type of data set (Training DS or Testing DS) and the Dataset itself
+    It uses the global cascade files to idetify Face, Eyes, Nose, Mouth from the given image. It displays the actual image and the image with the identified parts.
+    It extracts features of interest as defined above and stores them in the coressponding data set
+    """
+    
     global face_cascade, eye_cascade, mouth_cascade, nose_cascade
     
     #Get the filename from the path - This will be the key for the DS storing the image features
@@ -95,6 +103,10 @@ def processImage(pathToImageFile,dataSet,typeOfDataSet):
         
                                 
 def calculateDistance(point1, point2, method="euclidean"):
+    """
+    This function is used for calculating distance between two points on a x-y plane
+    It takes a default parameter, i.e., the distance calculation method, which is set to be Euclidean
+    """
     if method == "euclidean":
             return ( math.sqrt( pow( (point1[0] - point2[0]),2 ) + pow( (point1[1] - point2[1]),2 )) )
             
